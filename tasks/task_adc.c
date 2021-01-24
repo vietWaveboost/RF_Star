@@ -49,23 +49,26 @@ static void task_adc_scheduler_task(void *p_event_data, uint16_t event_size)
   status |= task_adc_sample();
   status |= adc_sensor.data_get(&data);
   RUUVI_DRIVER_ERROR_CHECK(status, RUUVI_DRIVER_SUCCESS);
-  snprintf(message, sizeof(message), "task_adc_scheduler_task %.3f \n", data.adc_v);
+  snprintf(message, sizeof(message), "SuperCap Value %.3f \r\n", data.adc_v);
   ruuvi_platform_log(RUUVI_INTERFACE_LOG_INFO, message);
-
+  //NRF_LOG_INFO("adc: %.3f \r\n", data.adc_v);
   if((data.adc_v > PWR_CAP_2V2) && (cap_charing == 0)) {
     //P0.31 logic high
+    NRF_LOG_INFO("###DONE###\r\n")
     task_led_write(RUUVI_BOARD_DONE_SIG,1);
   } 
   else {
     // Turn ON pwr sharing
     task_led_write(RUUVI_BOARD_PWR_SHARING, 1);
+    NRF_LOG_INFO("PWR_SHARING:: ON\r\n")
     cap_charing = 1;
-    NRF_LOG_INFO("counter_delay_base1s %d \r\n", counter_delay_base1s);
+    NRF_LOG_INFO("counter_delay_base1s %d\r\n", counter_delay_base1s+1)
     if(counter_delay_base1s++ >= 9){
       counter_delay_base1s = 9;
       if(data.adc_v > PWR_CAP_2V4) {
         //Turn OFF pwr sharing
         task_led_write(RUUVI_BOARD_PWR_SHARING, 0);
+        NRF_LOG_INFO("PWR_SHARING:: OFF\r\n")
         // Initialize BLE
         status |= task_advertisement_init();
         //  status |= task_gatt_init();

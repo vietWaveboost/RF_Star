@@ -20,7 +20,7 @@
 // Define for power measurement
 #define YES (1)
 #define NO  (0)
-#define ADVERTISE_WITH_DUMMY_DATA     NO
+#define ADVERTISE_WITH_DUMMY_DATA     YES
 
 
 #if(!ADVERTISE_WITH_DUMMY_DATA)
@@ -181,7 +181,7 @@
 
 // Choose one. RTT is recommended, but does not work on devices
 // with readback protection enabled
-#define APPLICATION_LOG_BACKEND_RTT_ENABLED         1
-//#define APPLICATION_LOG_BACKEND_UART_ENABLED        0 // UART not implemented
+//#define APPLICATION_LOG_BACKEND_RTT_ENABLED         1
+#define APPLICATION_LOG_BACKEND_UART_ENABLED        1 // UART not implemented
 
 #endif

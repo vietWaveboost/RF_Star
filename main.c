@@ -93,9 +93,9 @@ int main(void)
   //RUUVI_DRIVER_ERROR_CHECK(status, RUUVI_DRIVER_SUCCESS);
 
   // Initialize ADC
-  char message[128] = {0};
-  snprintf(message, sizeof(message), "APPLICATION_DATA_FORMAT");
-  ruuvi_platform_log(RUUVI_INTERFACE_LOG_INFO, message);
+  //char message[128] = {0};
+  //snprintf(message, sizeof(message), "APPLICATION_DATA_FORMAT");
+  //ruuvi_platform_log(RUUVI_INTERFACE_LOG_INFO, message);
   status |= task_adc_init();
   RUUVI_DRIVER_ERROR_CHECK(status, RUUVI_DRIVER_SUCCESS);
   /*To increase GPIO voltage to 3.0V*/

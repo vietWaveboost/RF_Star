@@ -27,6 +27,7 @@
   <ProjectSessionItem path="ruuvi.firmware.c;ruuvi.firmware.c;Application;Configuration"/>
   <ProjectSessionItem path="ruuvi.firmware.c;ruuvi.firmware.c;Application;tasks"/>
   <ProjectSessionItem path="ruuvi.firmware.c;ruuvi.firmware.c;nRF_Drivers"/>
+  <ProjectSessionItem path="ruuvi.firmware.c;ruuvi.firmware.c;nRF_Libraries"/>
   <ProjectSessionItem path="ruuvi.firmware.c;ruuvi.firmware.c;nRF_Log"/>
   <ProjectSessionItem path="ruuvi.firmware.c;ruuvi.firmware.c;nRF_SoftDevice"/>
   <ProjectSessionItem path="ruuvi.firmware.c;ruuvi.firmware.c;ruuvi.boards.c"/>
@@ -75,17 +76,18 @@
   <Watches active="0" update="Never"/>
  </Watch4>
  <Files>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="33" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../../../main.c" selected="0" top="10" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="66" useTextEdit="1" openedFrom="C:/Viet/workplace/RF-Star/tasks/task_led.c" useBinaryEdit="0" left="0" path="../../../ruuvi.drivers.c/nrf5_sdk15_platform/gpio/ruuvi_platform_gpio.c" selected="0" top="54" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="14" useTextEdit="1" openedFrom="C:/Viet/workplace/RF-Star/main.c" useBinaryEdit="0" left="0" path="../../../tasks/task_led.c" selected="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="53" useTextEdit="1" openedFrom="C:/Viet/workplace/RF-Star/tasks/task_led.c" useBinaryEdit="0" left="0" path="../../../ruuvi.boards.c/ruuvi_board_ruuvitag_b.h" selected="0" top="41" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../../../application_config/nrf5_sdk15_application_config.h" selected="0" top="60" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../../../application_config/ruuvi_platform_nrf5_sdk15_config.h" selected="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="26" useTextEdit="1" openedFrom="C:/Viet/workplace/RF-Star/tasks/task_environmental.c" useBinaryEdit="0" left="0" path="../../../application_config/application_config.h" selected="0" top="15" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../../../application_config/application_modes.h" selected="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="56" useTextEdit="1" openedFrom="C:/Viet/workplace/RF-Star/main.c" useBinaryEdit="0" left="0" path="../../../tasks/task_environmental.c" selected="0" top="29" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../../../tasks/task_adc.c" selected="1" top="30" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="146" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../../../tasks/task_advertisement.c" selected="0" top="118" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="33" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../../../main.c" selected="0" top="48" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="104" y="20" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="18" path="ruuvi.firmware.c.emProject" selected="1" top="10" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="8" y="177" useTextEdit="1" openedFrom="C:/Viet/workplace/RF_STAR/application_config/nrf5_sdk15_application_config.h" useBinaryEdit="0" left="0" path="../../../application_config/application_config.h" selected="0" top="166" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="1385" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../../../ruuvi.drivers.c/nrf5_sdk15_platform/sdk_config.h" selected="0" top="1378" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="26" y="15" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../../../application_config/nrf5_sdk15_application_config.h" selected="0" top="4" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="255" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../../../../nRF5_SDK_15.2.0_9412b96/components/libraries/log/src/nrf_log_str_formatter.c" selected="0" top="235" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="115" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../../../../nRF5_SDK_15.2.0_9412b96/components/libraries/log/src/nrf_log_backend_serial.c" selected="0" top="95" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="69" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../../../../nRF5_SDK_15.2.0_9412b96/components/libraries/log/src/nrf_log_default_backends.c" selected="0" top="56" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="65" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../../../../nRF5_SDK_15.2.0_9412b96/components/libraries/log/src/nrf_log_backend_uart.c" selected="0" top="50" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="162" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../../../../nRF5_SDK_15.2.0_9412b96/modules/nrfx/drivers/src/nrfx_uart.c" selected="0" top="160" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="161" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../../../../nRF5_SDK_15.2.0_9412b96/components/libraries/uart/app_uart_fifo.c" selected="0" top="151" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="../../../../nRF5_SDK_15.2.0_9412b96/modules/nrfx/drivers/src/nrfx_uarte.c" selected="0" top="203" codecName="Default"/>
  </Files>
  <ARMCrossStudioWindow activeProject="ruuvi.firmware.c" fileDialogDefaultFilter="*.c" autoConnectTarget="J-Link" buildConfiguration="Debug" sessionSettings="" debugSearchFileMap="C:/nfc_repo/nfc-library/private/nfc_t4t_lib/isodepmsg.c&#xa;&#xa;C:/nfc_repo/nfc-library/private/nfc_t4t_lib/nfc_t4t_lib.c&#xa;" fileDialogInitialDirectory="D:/00_Working/04_Support/00_source/new_ruuvi/nRF5_SDK_15.2.0_9412b96/modules/nrfx/drivers/src" debugSearchPath="" autoConnectCapabilities="3199"/>
 </session>
