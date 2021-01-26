@@ -18,6 +18,7 @@
 #include "ruuvi_interface_log.h"
 #include "ruuvi_interface_yield.h"
 #include "ruuvi_platform_external_includes.h"
+#include "ruuvi_interface_rtc.h"
 #include <stdarg.h>
 
 #if NRF5_SDK15_LOG_ENABLED
@@ -32,7 +33,7 @@ static ruuvi_interface_log_severity_t log_level;
 ruuvi_driver_status_t ruuvi_platform_log_init(ruuvi_interface_log_severity_t min_severity)
 {
   log_level = min_severity;
-  NRF_LOG_INIT(NULL);
+  NRF_LOG_INIT(ruuvi_platform_rtc_millis);
   NRF_LOG_DEFAULT_BACKENDS_INIT();
   return RUUVI_DRIVER_SUCCESS;
 }
