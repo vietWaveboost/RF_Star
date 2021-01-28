@@ -45,17 +45,17 @@ static void task_adc_scheduler_task(void *p_event_data, uint16_t event_size)
   ruuvi_interface_adc_data_t data;
   ruuvi_interface_adc_data_t data_ain1;
 
-  if(Is_Adv_Over)
-  {
-  //status |= task_adc_sample();
+    //status |= task_adc_sample();
   //status |= adc_sensor.data_get(&data);
-  data.adc_v = nrf52832_adc_sample_AIN0();
+  
   //data_ain1.adc_v = nrf52832_adc_sample_AIN1();
 
-  RUUVI_DRIVER_ERROR_CHECK(status, RUUVI_DRIVER_SUCCESS);
-  snprintf(message, sizeof(message), "SuperCap:: %.3f\r\n",data.adc_v);
-  ruuvi_platform_log(RUUVI_INTERFACE_LOG_INFO, message);
-  
+  if(Is_Adv_Over)
+  {
+    data.adc_v = nrf52832_adc_sample_AIN0();
+    RUUVI_DRIVER_ERROR_CHECK(status, RUUVI_DRIVER_SUCCESS);
+    snprintf(message, sizeof(message), "SuperCap:: %.3f\r\n",data.adc_v);
+    ruuvi_platform_log(RUUVI_INTERFACE_LOG_INFO, message);
   if((data.adc_v > PWR_CAP_2V2) && (cap_charing == 0)) {
     //P0.31 logic high
     NRF_LOG_INFO("###DONE###\r\n")

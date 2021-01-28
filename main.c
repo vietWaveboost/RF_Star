@@ -99,7 +99,7 @@ int main(void)
   status |= task_adc_init();
   RUUVI_DRIVER_ERROR_CHECK(status, RUUVI_DRIVER_SUCCESS);
   /*To increase GPIO voltage to 3.0V*/
-  bsp_board_init(BSP_INIT_LEDS);
+  //bsp_board_init(BSP_INIT_LEDS);
   // Initialize button with on_button task
   //status = task_button_init(RUUVI_INTERFACE_GPIO_SLOPE_HITOLO, task_button_on_press);
   //RUUVI_DRIVER_ERROR_CHECK(status, RUUVI_DRIVER_ERROR_NOT_FOUND | RUUVI_DRIVER_ERROR_NOT_SUPPORTED);

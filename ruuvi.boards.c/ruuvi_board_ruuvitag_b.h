@@ -44,17 +44,16 @@
 #define RUUVI_BOARD_MANUFACTURER_STRING       "Ruuvi Innovations Ltd"
 
 // LED definitions for RuuviTag B
-#define RUUVI_BOARD_LEDS_NUMBER               6
+#define RUUVI_BOARD_LEDS_NUMBER               4   
 #define RUUVI_BOARD_LED_1                     NRF_GPIO_PIN_MAP(0,6)
-#define RUUVI_BOARD_LED_2                     NRF_GPIO_PIN_MAP(0,12)
+#define WB_CAL_GPIO                           NRF_GPIO_PIN_MAP(0,12)
 #define RUUVI_BOARD_LED_3                     NRF_GPIO_PIN_MAP(0,21)
 #define RUUVI_BOARD_LED_4                     NRF_GPIO_PIN_MAP(0,22)
-#define RESERVATION_GPIO_1                    NRF_GPIO_PIN_MAP(0,11)
-#define RESERVATION_GPIO_2                    NRF_GPIO_PIN_MAP(0,12)
+#define Blink_LED                             NRF_GPIO_PIN_MAP(0,11)
+//#define RESERVATION_GPIO_2                    NRF_GPIO_PIN_MAP(0,12)
 #define RUUVI_BOARD_LEDS_ACTIVE_STATE         0
-#define RUUVI_BOARD_LEDS_LIST                 { RUUVI_BOARD_LED_1, RUUVI_BOARD_LED_2, RUUVI_BOARD_LED_3, RUUVI_BOARD_LED_4, RESERVATION_GPIO_1, RESERVATION_GPIO_2}
+#define RUUVI_BOARD_LEDS_LIST                 { RUUVI_BOARD_LED_1, RUUVI_BOARD_LED_3, RUUVI_BOARD_LED_4, Blink_LED}
 #define RUUVI_BOARD_LED_RED                   RUUVI_BOARD_LED_1
-#define RUUVI_BOARD_LED_GREEN                 RUUVI_BOARD_LED_2
 #define RUUVI_BOARD_PWR_SHARING               RUUVI_BOARD_LED_3
 #define RUUVI_BOARD_DONE_SIG                  RUUVI_BOARD_LED_4
 

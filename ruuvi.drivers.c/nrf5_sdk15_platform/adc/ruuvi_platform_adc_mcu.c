@@ -108,14 +108,29 @@ float nrf52832_adc_sample_AIN0(void)
   return raw_adc_to_volts(adc_buf);
 }
 
-float nrf52832_adc_sample_AIN1(void)
+float nrf52832_adc_sample_AIN2(void)
 {
   adc_buf = 0;
-  nrf_drv_saadc_sample_convert(2, &adc_buf);
+  nrf_drv_saadc_sample_convert(NRF_SAADC_INPUT_AIN2, &adc_buf);
   adc_tsample = ruuvi_driver_sensor_timestamp_get();
   return raw_adc_to_volts(adc_buf);
 }
 
+float nrf52832_adc_sample_AIN3(void)
+{
+  adc_buf = 0;
+  nrf_drv_saadc_sample_convert(NRF_SAADC_INPUT_AIN3, &adc_buf);
+  adc_tsample = ruuvi_driver_sensor_timestamp_get();
+  return raw_adc_to_volts(adc_buf);
+}
+
+float nrf52832_adc_sample_AIN6(void)
+{
+  adc_buf = 0;
+  nrf_drv_saadc_sample_convert(NRF_SAADC_INPUT_AIN6, &adc_buf);
+  adc_tsample = ruuvi_driver_sensor_timestamp_get();
+  return raw_adc_to_volts(adc_buf);
+}
 /**@brief Function handling events from 'nrf_drv_saadc.c'.
  * No implementation needed
  *
@@ -559,11 +574,17 @@ ruuvi_driver_status_t wb_task_adc_init(void)
 
   nrf_saadc_channel_config_t pin_config_1 = NRF_DRV_SAADC_DEFAULT_CHANNEL_CONFIG_SE(NRF_SAADC_INPUT_AIN0);
   pin_config_1.acq_time   = NRF_SAADC_ACQTIME_40US;
-  nrf_saadc_channel_config_t pin_config_2 = NRF_DRV_SAADC_DEFAULT_CHANNEL_CONFIG_SE(NRF_SAADC_INPUT_AIN1);
+  nrf_saadc_channel_config_t pin_config_2 = NRF_DRV_SAADC_DEFAULT_CHANNEL_CONFIG_SE(NRF_SAADC_INPUT_AIN2);
   pin_config_2.acq_time   = NRF_SAADC_ACQTIME_40US;
+  nrf_saadc_channel_config_t pin_config_3 = NRF_DRV_SAADC_DEFAULT_CHANNEL_CONFIG_SE(NRF_SAADC_INPUT_AIN3);
+  pin_config_3.acq_time   = NRF_SAADC_ACQTIME_40US;
+  nrf_saadc_channel_config_t pin_config_6 = NRF_DRV_SAADC_DEFAULT_CHANNEL_CONFIG_SE(NRF_SAADC_INPUT_AIN6);
+  pin_config_6.acq_time   = NRF_SAADC_ACQTIME_40US;
 
   err_code = nrf_drv_saadc_channel_init(NRF_SAADC_INPUT_AIN0, &pin_config_1);
-  err_code = nrf_drv_saadc_channel_init(NRF_SAADC_INPUT_AIN1, &pin_config_2);
+  err_code = nrf_drv_saadc_channel_init(NRF_SAADC_INPUT_AIN2, &pin_config_2);
+  err_code = nrf_drv_saadc_channel_init(NRF_SAADC_INPUT_AIN3, &pin_config_3);
+  err_code = nrf_drv_saadc_channel_init(NRF_SAADC_INPUT_AIN6, &pin_config_6);
   APP_ERROR_CHECK(err_code);
 }
 #endif

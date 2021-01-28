@@ -19,7 +19,9 @@ typedef struct
   float reserved1;
 }ruuvi_interface_adc_data_t;
 
-float nrf52832_adc_sample_AIN1(void);
+float nrf52832_adc_sample_AIN6(void);
+float nrf52832_adc_sample_AIN2(void);
+float nrf52832_adc_sample_AIN3(void);
 float nrf52832_adc_sample_AIN0(void);
 
 #endif

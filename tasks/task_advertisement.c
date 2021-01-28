@@ -24,30 +24,66 @@
 #include "task_environmental.h"
 #include "veml7700.h"
 #include "nrf_log.h"
+#include "ruuvi_interface_gpio.h"
 RUUVI_PLATFORM_TIMER_ID_DEF(advertisement_timer);
 ruuvi_interface_communication_t channel;
 int8_t Is_Adv_Over = 0;
 int8_t cnt_adv = 0;
+int8_t Cal_Gpio_State = 0;
+ruuvi_interface_adc_data_t Rec1_adc;
+ruuvi_interface_adc_data_t Rec2_adc;
+ruuvi_interface_adc_data_t PM_ADC;
+static uint8_t Num_of_Cal = 0;
+char message[60] = {0};
 //handler for scheduled advertisement event
 static void task_advertisement_scheduler_task(void *p_event_data, uint16_t event_size)
 {
   ruuvi_driver_status_t err_code = RUUVI_DRIVER_SUCCESS;
   // Update BLE data
-  
-  if(cnt_adv++ < 2)
+  if(nrf_gpio_pin_read(WB_CAL_GPIO))
   {
-    //nrf_gpio_pin_write(RESERVATION_GPIO_1,1);
-    //nrf_gpio_pin_write(RESERVATION_GPIO_2,1);
-    if(APPLICATION_DATA_FORMAT == 3) { err_code |= task_advertisement_send_3(); }
-    NRF_LOG_INFO("advertisement = %d \r\n", cnt_adv);
+    //NRF_LOG_INFO("highxxx\r\n");
+    Cal_Gpio_State = 1;
   }
   else
   {
-    ruuvi_platform_timer_stop(advertisement_timer);
-    ruuvi_interface_communication_ble4_advertising_uninit(&channel);
+    //NRF_LOG_INFO("lowxxx\r\n");
+    Cal_Gpio_State = 0;
+  }
+  
+
+  if(!Cal_Gpio_State)//!nrf_gpio_pin_read(WB_CAL_GPIO))
+  {
+    if(cnt_adv++ < 2)
+    {
+      if(APPLICATION_DATA_FORMAT == 3) { err_code |= task_advertisement_send_3(); }
+      NRF_LOG_INFO("advertisement = %d \r\n", cnt_adv);
+    }
+    else
+    {
+      ruuvi_platform_timer_stop(advertisement_timer);
+      ruuvi_interface_communication_ble4_advertising_uninit(&channel);
     
-    Is_Adv_Over = 1;
-    cnt_adv = 0x0F;
+      Is_Adv_Over = 1;
+      cnt_adv = 0x0F;
+    }
+  }
+  else
+  {
+    if(Num_of_Cal++ < 10)
+    {
+      Rec2_adc.adc_v = nrf52832_adc_sample_AIN2();
+      Rec1_adc.adc_v = nrf52832_adc_sample_AIN3();
+      PM_ADC.adc_v = nrf52832_adc_sample_AIN6();
+      if(APPLICATION_DATA_FORMAT == 3) { err_code |= task_advertisement_send_3(); }
+      snprintf(message, sizeof(message), "adv Rec2_adc:: %.3f Rec1_adc:: %.3f PM_ADC:: %.3f\r\n",Rec2_adc.adc_v,Rec1_adc.adc_v,PM_ADC.adc_v);
+      ruuvi_platform_log(RUUVI_INTERFACE_LOG_INFO, message);
+    }
+    else
+    {
+      Num_of_Cal = 0xFE;
+      //do nothing
+    }
   }
 }
 
@@ -84,7 +120,7 @@ ruuvi_driver_status_t task_advertisement_send_3(void)
   err_code |= task_environmental_data_get(&environmental);
   #endif
   #endif
-  err_code |= task_adc_battery_get(&battery);
+  //err_code |= task_adc_battery_get(&battery);
   
   #if(!ADVERTISE_WITH_DUMMY_DATA)
   #if(ADVERTISE_WITH_VEML6035)

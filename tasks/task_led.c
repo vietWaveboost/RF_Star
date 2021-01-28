@@ -14,6 +14,7 @@ ruuvi_driver_status_t task_led_init(void)
     ruuvi_platform_gpio_configure(leds[ii], RUUVI_INTERFACE_GPIO_MODE_OUTPUT_HIGHDRIVE);
     ruuvi_platform_gpio_write(leds[ii], RUUVI_BOARD_LEDS_ACTIVE_STATE);//!RUUVI_BOARD_LEDS_ACTIVE_STATE);
   }
+  ruuvi_platform_gpio_configure(WB_CAL_GPIO,RUUVI_INTERFACE_GPIO_MODE_INPUT_PULLUP);
 
   return err_code;
 }
