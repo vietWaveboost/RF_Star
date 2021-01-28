@@ -100,6 +100,22 @@ static void nrf52832_adc_sample(void)
   adc_volts = raw_adc_to_volts(adc_buf);
 }
 
+float nrf52832_adc_sample_AIN0(void)
+{
+  adc_buf = 0;
+  nrf_drv_saadc_sample_convert(1, &adc_buf);
+  adc_tsample = ruuvi_driver_sensor_timestamp_get();
+  return raw_adc_to_volts(adc_buf);
+}
+
+float nrf52832_adc_sample_AIN1(void)
+{
+  adc_buf = 0;
+  nrf_drv_saadc_sample_convert(2, &adc_buf);
+  adc_tsample = ruuvi_driver_sensor_timestamp_get();
+  return raw_adc_to_volts(adc_buf);
+}
+
 /**@brief Function handling events from 'nrf_drv_saadc.c'.
  * No implementation needed
  *
@@ -222,7 +238,9 @@ ruuvi_driver_status_t ruuvi_interface_adc_mcu_init(ruuvi_driver_sensor_t* adc_se
 
   // Initialize given channel. Only one ADC channel is supported at a time
   nrf_saadc_channel_config_t ch_config = NRF_DRV_SAADC_DEFAULT_CHANNEL_CONFIG_SE(ruuvi_to_nrf_adc_channel(handle));
+  nrf_saadc_channel_config_t ch_config1 = NRF_DRV_SAADC_DEFAULT_CHANNEL_CONFIG_SE(ruuvi_to_nrf_adc_channel(RUUVI_INTERFACE_ADC_AIN1));
   nrf_saadc_channel_init(0, &ch_config);
+  nrf_saadc_channel_init(1, &ch_config1);
   adc_channel = handle;
 
   // Setup function pointers
@@ -533,4 +551,19 @@ ruuvi_driver_status_t ruuvi_interface_adc_mcu_data_get(void* data)
   return RUUVI_DRIVER_SUCCESS;
 }
 
+
+ruuvi_driver_status_t wb_task_adc_init(void)
+{
+  ret_code_t err_code = nrf_drv_saadc_init(NULL, saadc_event_handler);
+  APP_ERROR_CHECK(err_code);
+
+  nrf_saadc_channel_config_t pin_config_1 = NRF_DRV_SAADC_DEFAULT_CHANNEL_CONFIG_SE(NRF_SAADC_INPUT_AIN0);
+  pin_config_1.acq_time   = NRF_SAADC_ACQTIME_40US;
+  nrf_saadc_channel_config_t pin_config_2 = NRF_DRV_SAADC_DEFAULT_CHANNEL_CONFIG_SE(NRF_SAADC_INPUT_AIN1);
+  pin_config_2.acq_time   = NRF_SAADC_ACQTIME_40US;
+
+  err_code = nrf_drv_saadc_channel_init(NRF_SAADC_INPUT_AIN0, &pin_config_1);
+  err_code = nrf_drv_saadc_channel_init(NRF_SAADC_INPUT_AIN1, &pin_config_2);
+  APP_ERROR_CHECK(err_code);
+}
 #endif

@@ -34,5 +34,5 @@ ruuvi_driver_status_t ruuvi_interface_adc_mcu_dsp_get(uint8_t* dsp, uint8_t* par
 ruuvi_driver_status_t ruuvi_interface_adc_mcu_mode_set(uint8_t*);
 ruuvi_driver_status_t ruuvi_interface_adc_mcu_mode_get(uint8_t*);
 ruuvi_driver_status_t ruuvi_interface_adc_mcu_data_get(void* data);
-
+ruuvi_driver_status_t wb_task_adc_init(void);
 #endif

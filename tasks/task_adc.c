@@ -43,15 +43,19 @@ static void task_adc_scheduler_task(void *p_event_data, uint16_t event_size)
   ruuvi_driver_status_t status = RUUVI_DRIVER_SUCCESS;
   char message[128] = {0};
   ruuvi_interface_adc_data_t data;
+  ruuvi_interface_adc_data_t data_ain1;
 
   if(Is_Adv_Over)
   {
-  status |= task_adc_sample();
-  status |= adc_sensor.data_get(&data);
+  //status |= task_adc_sample();
+  //status |= adc_sensor.data_get(&data);
+  data.adc_v = nrf52832_adc_sample_AIN0();
+  //data_ain1.adc_v = nrf52832_adc_sample_AIN1();
+
   RUUVI_DRIVER_ERROR_CHECK(status, RUUVI_DRIVER_SUCCESS);
-  snprintf(message, sizeof(message), "SuperCap Value %.3f \r\n", data.adc_v);
+  snprintf(message, sizeof(message), "SuperCap:: %.3f\r\n",data.adc_v);
   ruuvi_platform_log(RUUVI_INTERFACE_LOG_INFO, message);
-  //NRF_LOG_INFO("adc: %.3f \r\n", data.adc_v);
+  
   if((data.adc_v > PWR_CAP_2V2) && (cap_charing == 0)) {
     //P0.31 logic high
     NRF_LOG_INFO("###DONE###\r\n")
@@ -167,6 +171,13 @@ static ruuvi_driver_status_t task_adc_configure(void)
 
 ruuvi_driver_status_t task_adc_init(void)
 {
+  wb_task_adc_init();
+
+  ruuvi_platform_timer_create(&adc_timer, RUUVI_INTERFACE_TIMER_MODE_REPEATED, task_adc_timer_cb);
+  ruuvi_platform_timer_start(adc_timer, APPLICATION_ADC_SAMPLE_INTERVAL_MS);
+
+  return RUUVI_DRIVER_SUCCESS;
+/*
   ruuvi_driver_status_t err_code = RUUVI_DRIVER_SUCCESS;
   ruuvi_driver_bus_t bus = RUUVI_DRIVER_BUS_NONE;
   uint8_t handle = RUUVI_INTERFACE_ADC_AIN0;
@@ -199,6 +210,7 @@ ruuvi_driver_status_t task_adc_init(void)
 
   // Return error if ADC could not be configured
   return RUUVI_DRIVER_ERROR_NOT_FOUND;
+*/
 }
 
 ruuvi_driver_status_t task_adc_data_log(const ruuvi_interface_log_severity_t level)
