@@ -42,12 +42,12 @@ static void task_advertisement_scheduler_task(void *p_event_data, uint16_t event
   // Update BLE data
   if(nrf_gpio_pin_read(WB_CAL_GPIO))
   {
-    //NRF_LOG_INFO("highxxx\r\n");
+    NRF_LOG_INFO("highxxx\r\n");
     Cal_Gpio_State = 1;
   }
   else
   {
-    //NRF_LOG_INFO("lowxxx\r\n");
+    NRF_LOG_INFO("lowxxx\r\n");
     Cal_Gpio_State = 0;
   }
   

@@ -45,11 +45,6 @@ static void task_adc_scheduler_task(void *p_event_data, uint16_t event_size)
   ruuvi_interface_adc_data_t data;
   ruuvi_interface_adc_data_t data_ain1;
 
-    //status |= task_adc_sample();
-  //status |= adc_sensor.data_get(&data);
-  
-  //data_ain1.adc_v = nrf52832_adc_sample_AIN1();
-
   if(Is_Adv_Over)
   {
     data.adc_v = nrf52832_adc_sample_AIN0();
