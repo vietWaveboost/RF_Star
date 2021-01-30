@@ -66,24 +66,18 @@ static void task_advertisement_scheduler_task(void *p_event_data, uint16_t event
     
       Is_Adv_Over = 1;
       cnt_adv = 0x0F;
+      ruuvi_platform_gpio_write(Blink_LED,RUUVI_INTERFACE_GPIO_LOW);
     }
   }
   else
   {
-    if(Num_of_Cal++ < 10)
-    {
       Rec2_adc.adc_v = nrf52832_adc_sample_AIN2();
       Rec1_adc.adc_v = nrf52832_adc_sample_AIN3();
       PM_ADC.adc_v = nrf52832_adc_sample_AIN6();
       if(APPLICATION_DATA_FORMAT == 3) { err_code |= task_advertisement_send_3(); }
       snprintf(message, sizeof(message), "adv Rec2_adc:: %.3f Rec1_adc:: %.3f PM_ADC:: %.3f\r\n",Rec2_adc.adc_v,Rec1_adc.adc_v,PM_ADC.adc_v);
       ruuvi_platform_log(RUUVI_INTERFACE_LOG_INFO, message);
-    }
-    else
-    {
-      Num_of_Cal = 0xFE;
-      //do nothing
-    }
+      ruuvi_platform_gpio_toggle(Blink_LED);
   }
 }
 
