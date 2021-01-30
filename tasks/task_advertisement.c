@@ -25,6 +25,7 @@
 #include "veml7700.h"
 #include "nrf_log.h"
 #include "ruuvi_interface_gpio.h"
+#include <nrf_delay.h>
 RUUVI_PLATFORM_TIMER_ID_DEF(advertisement_timer);
 ruuvi_interface_communication_t channel;
 int8_t Is_Adv_Over = 0;
@@ -72,7 +73,9 @@ static void task_advertisement_scheduler_task(void *p_event_data, uint16_t event
   else
   {
       Rec2_adc.adc_v = nrf52832_adc_sample_AIN2();
+      nrf_delay_us(10);
       Rec1_adc.adc_v = nrf52832_adc_sample_AIN3();
+      nrf_delay_us(10);
       PM_ADC.adc_v = nrf52832_adc_sample_AIN6();
       if(APPLICATION_DATA_FORMAT == 3) { err_code |= task_advertisement_send_3(); }
       snprintf(message, sizeof(message), "adv Rec2_adc:: %.3f Rec1_adc:: %.3f PM_ADC:: %.3f\r\n",Rec2_adc.adc_v,Rec1_adc.adc_v,PM_ADC.adc_v);

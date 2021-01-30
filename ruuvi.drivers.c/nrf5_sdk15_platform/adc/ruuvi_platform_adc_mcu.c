@@ -103,32 +103,44 @@ static void nrf52832_adc_sample(void)
 float nrf52832_adc_sample_AIN0(void)
 {
   adc_buf = 0;
-  nrf_drv_saadc_sample_convert(1, &adc_buf);
-  adc_tsample = ruuvi_driver_sensor_timestamp_get();
+  if (!nrf_drv_saadc_is_busy())
+  {
+    nrf_drv_saadc_sample_convert(1, &adc_buf);
+    adc_tsample = ruuvi_driver_sensor_timestamp_get();
+  }
   return raw_adc_to_volts(adc_buf);
 }
 
 float nrf52832_adc_sample_AIN2(void)
 {
   adc_buf = 0;
-  nrf_drv_saadc_sample_convert(NRF_SAADC_INPUT_AIN2, &adc_buf);
-  adc_tsample = ruuvi_driver_sensor_timestamp_get();
+  if (!nrf_drv_saadc_is_busy())
+  {
+    nrf_drv_saadc_sample_convert(NRF_SAADC_INPUT_AIN2, &adc_buf);
+    adc_tsample = ruuvi_driver_sensor_timestamp_get();
+  }
   return raw_adc_to_volts(adc_buf);
 }
 
 float nrf52832_adc_sample_AIN3(void)
 {
   adc_buf = 0;
-  nrf_drv_saadc_sample_convert(NRF_SAADC_INPUT_AIN3, &adc_buf);
-  adc_tsample = ruuvi_driver_sensor_timestamp_get();
+  if (!nrf_drv_saadc_is_busy())
+  {
+    nrf_drv_saadc_sample_convert(NRF_SAADC_INPUT_AIN3, &adc_buf);
+    adc_tsample = ruuvi_driver_sensor_timestamp_get();
+  }
   return raw_adc_to_volts(adc_buf);
 }
 
 float nrf52832_adc_sample_AIN6(void)
 {
   adc_buf = 0;
-  nrf_drv_saadc_sample_convert(NRF_SAADC_INPUT_AIN6, &adc_buf);
-  adc_tsample = ruuvi_driver_sensor_timestamp_get();
+  if (!nrf_drv_saadc_is_busy())
+  {
+    nrf_drv_saadc_sample_convert(NRF_SAADC_INPUT_AIN6, &adc_buf);
+    adc_tsample = ruuvi_driver_sensor_timestamp_get();
+  }
   return raw_adc_to_volts(adc_buf);
 }
 /**@brief Function handling events from 'nrf_drv_saadc.c'.
