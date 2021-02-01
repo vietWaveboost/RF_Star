@@ -44,3 +44,11 @@ WaveBoost Sensor Board is including :
 go to the file ble_advertising.c in SDK.
 search for the function : ble_advertising_start
 add line :  p_advertising->adv_params.scan_req_notification = 1; under if condition : if (p_advertising->adv_mode_current != BLE_ADV_MODE_IDLE)
+
+
+***<error> app: ASSERT FAILED at..... ***
+open the file : nRF5_SDK_15.2.0_9412b96\components\libraries\pwr_mgmt\nrf_pwr_mgmt.c
+comment line 125 : ASSERT((original_fpscr & 0x7) == 0); ==> //ASSERT((original_fpscr & 0x7) == 0)
+
+this is not a bug in application code, it is because checking of SDK. 
+refer : https://devzone.nordicsemi.com/f/nordic-q-a/29419/pwr_mgmt_fpu_sleep_prepare-fails-with-assert
