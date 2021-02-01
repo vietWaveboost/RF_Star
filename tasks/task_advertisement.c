@@ -64,7 +64,7 @@ static void task_advertisement_scheduler_task(void *p_event_data, uint16_t event
     {
       ruuvi_platform_timer_stop(advertisement_timer);
       ruuvi_interface_communication_ble4_advertising_uninit(&channel);
-    
+      
       Is_Adv_Over = 1;
       cnt_adv = 0x0F;
       ruuvi_platform_gpio_write(Blink_LED,RUUVI_INTERFACE_GPIO_LOW);
@@ -73,9 +73,7 @@ static void task_advertisement_scheduler_task(void *p_event_data, uint16_t event
   else
   {
       Rec2_adc.adc_v = nrf52832_adc_sample_AIN2();
-      nrf_delay_us(10);
       Rec1_adc.adc_v = nrf52832_adc_sample_AIN3();
-      nrf_delay_us(10);
       PM_ADC.adc_v = nrf52832_adc_sample_AIN6();
       if(APPLICATION_DATA_FORMAT == 3) { err_code |= task_advertisement_send_3(); }
       snprintf(message, sizeof(message), "adv Rec2_adc:: %.3f Rec1_adc:: %.3f PM_ADC:: %.3f\r\n",Rec2_adc.adc_v,Rec1_adc.adc_v,PM_ADC.adc_v);
