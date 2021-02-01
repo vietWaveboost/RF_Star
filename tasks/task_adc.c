@@ -51,6 +51,7 @@ static void task_adc_scheduler_task(void *p_event_data, uint16_t event_size)
     RUUVI_DRIVER_ERROR_CHECK(status, RUUVI_DRIVER_SUCCESS);
     snprintf(message, sizeof(message), "SuperCap:: %.3f\r\n",data.adc_v);
     ruuvi_platform_log(RUUVI_INTERFACE_LOG_INFO, message);
+#if(ENABLE_POWER_SHARING)
   if((data.adc_v > PWR_CAP_2V2) && (cap_charing == 0)) {
     //P0.31 logic high
     NRF_LOG_INFO("###DONE###\r\n")
@@ -81,6 +82,12 @@ static void task_adc_scheduler_task(void *p_event_data, uint16_t event_size)
       }
     }
   }
+#else
+    //P0.31 logic high
+    NRF_LOG_INFO("PWR_SHARING is DISABLE\r\n")
+    NRF_LOG_INFO("###DONE###\r\n")
+    task_led_write(RUUVI_BOARD_DONE_SIG,1);
+#endif //ENABLE_POWER_SHARING
   }
   // Log warning if adc sampling failed.
   RUUVI_DRIVER_ERROR_CHECK(status, ~RUUVI_DRIVER_ERROR_FATAL);

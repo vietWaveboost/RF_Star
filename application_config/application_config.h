@@ -22,6 +22,7 @@
 #define NO  (0)
 #define ADVERTISE_WITH_DUMMY_DATA     YES
 
+#define ENABLE_POWER_SHARING          YES
 
 #if(!ADVERTISE_WITH_DUMMY_DATA)
 #define ADVERTISE_WITH_BME280           YES
