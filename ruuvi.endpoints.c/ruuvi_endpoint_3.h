@@ -11,7 +11,7 @@
 
 #define RUUVI_ENDPOINT_3_DESTINATION 0x03
 #define RUUVI_ENDPOINT_3_INVALID_DATA 0
-#define RUUVI_ENDPOINT_3_DATA_LENGTH 14
+#define RUUVI_ENDPOINT_3_DATA_LENGTH 16
 
 #define RUUVI_ENDPOINT_3_OFFSET_HEADER               0
 #define RUUVI_ENDPOINT_3_OFFSET_HUMIDITY             1
@@ -27,6 +27,8 @@
 #define RUUVI_ENDPOINT_3_OFFSET_ACCELERATIONZ_LSB    11
 #define RUUVI_ENDPOINT_3_OFFSET_VOLTAGE_MSB          12
 #define RUUVI_ENDPOINT_3_OFFSET_VOLTAGE_LSB          13
+#define RUUVI_ENDPOINT_3_OFFSET_SUPERCAP_MSB         14
+#define RUUVI_ENDPOINT_3_OFFSET_SUPERCAP_LSB         15
 
 typedef struct{
   float humidity_rh;
@@ -36,6 +38,9 @@ typedef struct{
   float accelerationy_g;
   float accelerationz_g;
   float battery_v;
+  float rec1_adc;
+  float rec2_adc;
+  float pm_adc;
   int   light;
 }ruuvi_endpoint_3_data_t;
 

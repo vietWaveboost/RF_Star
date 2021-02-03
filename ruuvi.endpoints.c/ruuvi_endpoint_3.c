@@ -6,21 +6,14 @@
 #include "nrf_log.h"
 static void ruuvi_endpoint_3_encode_acceleration(uint8_t* const buffer, const float acceleration, const float invalid)
 {
-  if(invalid != acceleration)
-  {
-    int16_t decimal = (int16_t) (acceleration*1000);
-    buffer[0] = decimal >> 8;
-    buffer[1] = decimal & 0xFF;
-  }
-  else
-  {
-    buffer[0] = RUUVI_ENDPOINT_3_INVALID_DATA;
-    buffer[1] = RUUVI_ENDPOINT_3_INVALID_DATA;
-  }
+   int16_t decimal = (int16_t) (acceleration*1000);
+   buffer[0] = decimal >> 8;
+   buffer[1] = decimal & 0xFF;
 }
 
 ruuvi_endpoint_status_t ruuvi_endpoint_3_encode(uint8_t* const buffer, const ruuvi_endpoint_3_data_t* data, const float invalid)
 {
+  uint16_t temp_adc = 0;
   if(NULL == buffer  || NULL == data) { return RUUVI_ENDPOINT_ERROR_NULL; }
 
   buffer[RUUVI_ENDPOINT_3_OFFSET_HEADER] = RUUVI_ENDPOINT_3_DESTINATION;
@@ -72,23 +65,14 @@ ruuvi_endpoint_status_t ruuvi_endpoint_3_encode(uint8_t* const buffer, const ruu
   }
 
   // acceleration
-  ruuvi_endpoint_3_encode_acceleration(&buffer[RUUVI_ENDPOINT_3_OFFSET_ACCELERATIONX_MSB], data->accelerationx_g, invalid);
-  ruuvi_endpoint_3_encode_acceleration(&buffer[RUUVI_ENDPOINT_3_OFFSET_ACCELERATIONY_MSB], data->accelerationy_g, invalid);
-  ruuvi_endpoint_3_encode_acceleration(&buffer[RUUVI_ENDPOINT_3_OFFSET_ACCELERATIONZ_MSB], data->accelerationz_g, invalid);
+  ruuvi_endpoint_3_encode_acceleration(&buffer[RUUVI_ENDPOINT_3_OFFSET_ACCELERATIONX_MSB], data->rec1_adc, invalid);
+  ruuvi_endpoint_3_encode_acceleration(&buffer[RUUVI_ENDPOINT_3_OFFSET_ACCELERATIONY_MSB], data->rec2_adc, invalid);
+  ruuvi_endpoint_3_encode_acceleration(&buffer[RUUVI_ENDPOINT_3_OFFSET_ACCELERATIONZ_MSB], data->pm_adc, invalid);
 
   // voltage
-  if(invalid != data->battery_v)
-  {
-
-    uint32_t voltage = (data->battery_v*1000 > 0) ? data->battery_v*1000 : 0;
-    buffer[RUUVI_ENDPOINT_3_OFFSET_VOLTAGE_MSB] = voltage>>8;
-    buffer[RUUVI_ENDPOINT_3_OFFSET_VOLTAGE_LSB] = voltage&0xFF;
-  }
-  else
-  {
-    buffer[RUUVI_ENDPOINT_3_OFFSET_VOLTAGE_MSB] = RUUVI_ENDPOINT_3_INVALID_DATA;
-    buffer[RUUVI_ENDPOINT_3_OFFSET_VOLTAGE_LSB] = RUUVI_ENDPOINT_3_INVALID_DATA;
-  }
+  uint32_t voltage = (data->battery_v*1000);
+  buffer[RUUVI_ENDPOINT_3_OFFSET_SUPERCAP_MSB] = voltage>>8;
+  buffer[RUUVI_ENDPOINT_3_OFFSET_SUPERCAP_LSB] = voltage&0xFF;
 
  
   buffer[RUUVI_ENDPOINT_3_OFFSET_VOLTAGE_MSB] = data->light>>8;

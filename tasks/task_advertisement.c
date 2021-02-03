@@ -128,10 +128,15 @@ ruuvi_driver_status_t task_advertisement_send_3(void)
   data.accelerationx_g = acclereration.x_g;
   data.accelerationy_g = acclereration.y_g;
   data.accelerationz_g = acclereration.z_g;
+
+  data.rec1_adc = Rec1_adc.adc_v;
+  data.rec2_adc = Rec2_adc.adc_v;
+  data.pm_adc   = PM_ADC.adc_v;
+
   data.humidity_rh = environmental.humidity_rh;
   data.temperature_c = environmental.temperature_c;
   data.pressure_pa = environmental.pressure_pa;
-  data.battery_v = battery.adc_v;
+  data.battery_v = nrf52832_adc_sample_AIN0();
   data.light = light; 
   ruuvi_interface_communication_message_t message;
   message.data_length = RUUVI_ENDPOINT_3_DATA_LENGTH;
